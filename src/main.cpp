@@ -1,25 +1,40 @@
 #include <iostream>
-#include "CircleList.hh"
+#include <stdlib.h>
+#include "Queue.hh"
+
 int main()
 {
-    CircleList<int> cl;
-    int i1 = 1, i2 = 2, i3 = 3, i4 = 4;
-    cl.add(i1);
-    cl.add(i2);
-    cl.add(i3);
-    cl.add(i4);
-    while (!cl.empty())
+    Queue<int> q;
+    int tmp;
+    char user_input;
+    while (1)
     {
-        try
+        tmp = rand();
+        std::cin >> user_input;
+        switch (user_input)
         {
-            std::cout << cl.back() << std::endl;
-            cl.remove();
-        }
-        catch (const std::out_of_range &e)
-        {
-            std::cerr << e.what() << '\n';
-        }
-    }
+        case 'a':
+            q.enqueue(tmp);
+            std::cout << tmp << std::endl;
+            break;
+        case 'r':
+            try
+            {
+                std::cout << q.front() << std::endl;
+                q.dequeue();
+            }
+            catch (const std::out_of_range &e)
+            {
+                std::cerr << e.what() << '\n';
+            }
 
+            break;
+
+        default:
+            std::cerr << "Invalid input!" << std::endl;
+            break;
+        }
+        q.size();
+    }
     return EXIT_SUCCESS;
 }
