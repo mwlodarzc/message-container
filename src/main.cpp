@@ -3,20 +3,29 @@
 #include "Queue.hh"
 #include "IndexedLetter.hh"
 
+class Message
+{
+private:
+    Queue<IndexedLetter> letters;
+
+public:
+    Message();
+    Message(char *msg);
+    void simulate_transmission();
+    char *receive();
+};
+
+Message::Message(char *msg)
+{
+    for (long unsigned int i = 0; i < sizeof(msg) - 1; i++)
+        letters.enqueue(IndexedLetter(msg[i], i));
+}
+
+void Message::simulate_transmission()
+{
+}
+
 int main()
 {
-    Queue<IndexedLetter> q;
-    q.enqueue(IndexedLetter('a', 1));
-    std::cout << q.front().get_letter() << "  " << q.front().get_index() << std::endl;
-    q.dequeue();
-    try
-    {
-        q.dequeue();
-    }
-    catch (const std::out_of_range &e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
     return EXIT_SUCCESS;
 }
