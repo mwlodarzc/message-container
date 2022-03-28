@@ -40,16 +40,14 @@ void Queue<T>::dequeue()
 template <typename T>
 const T &Queue<T>::front() const
 {
-    T *tmp = new T;
     try
     {
-        *tmp = list.back();
+        return list.back();
     }
     catch (const std::out_of_range &e)
     {
         throw std::out_of_range("Queue empty!");
     }
-    return *tmp;
 }
 
 #endif

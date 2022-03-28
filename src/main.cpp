@@ -1,40 +1,22 @@
 #include <iostream>
 #include <stdlib.h>
 #include "Queue.hh"
+#include "IndexedLetter.hh"
 
 int main()
 {
-    Queue<int> q;
-    int tmp;
-    char user_input;
-    while (1)
+    Queue<IndexedLetter> q;
+    q.enqueue(IndexedLetter('a', 1));
+    std::cout << q.front().get_letter() << "  " << q.front().get_index() << std::endl;
+    q.dequeue();
+    try
     {
-        tmp = rand();
-        std::cin >> user_input;
-        switch (user_input)
-        {
-        case 'a':
-            q.enqueue(tmp);
-            std::cout << tmp << std::endl;
-            break;
-        case 'r':
-            try
-            {
-                std::cout << q.front() << std::endl;
-                q.dequeue();
-            }
-            catch (const std::out_of_range &e)
-            {
-                std::cerr << e.what() << '\n';
-            }
-
-            break;
-
-        default:
-            std::cerr << "Invalid input!" << std::endl;
-            break;
-        }
-        q.size();
+        q.dequeue();
     }
+    catch (const std::out_of_range &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
     return EXIT_SUCCESS;
 }
