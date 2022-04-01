@@ -1,6 +1,5 @@
 #ifndef QUEUE_HH
 #define QUEUE_HH
-#include "CircleList.hh"
 
 template <typename T>
 class Queue

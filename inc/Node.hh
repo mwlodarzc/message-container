@@ -8,10 +8,16 @@ class Node
 private:
     T elem;
     Node *next;
+    Node *prev;
     inline static int created = 0;
     inline static int exists = 0;
 
 public:
+    Node()
+    {
+        created++;
+        exists++;
+    }
     Node(const T &elem_) : elem{elem_}
     {
         created++;
@@ -26,6 +32,8 @@ public:
     const T &get_elem() const { return elem; };
     Node &get_next() const { return *next; };
     void set_next(Node &next_) { next = &next_; };
+    Node &get_prev() const { return *prev; };
+    void set_prev(Node &prev_) { prev = &prev_; };
     static int existing_number() { return exists; }
     static int created_number() { return created; }
 };
