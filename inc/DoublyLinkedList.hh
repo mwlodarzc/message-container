@@ -10,6 +10,24 @@ private:
     Node<T> *header;
     Node<T> *trailer;
 
+protected: // protected members declared here beacause of possible specialization errors
+    void add(Node<T> *node, const T &elem)
+    {
+        Node<T> *tmp = new Node<T>(elem);
+        tmp->set_next(*node);
+        tmp->set_prev(node->get_prev());
+        node->get_prev().set_next(*tmp);
+        node->set_prev(*tmp);
+        tmp = nullptr;
+    }
+
+    void remove(Node<T> *v)
+    {
+        v->get_prev().set_next(v->get_next());
+        v->get_next().set_prev(v->get_prev());
+        delete v;
+    }
+
 public:
     DoublyLinkedList();           // working
     ~DoublyLinkedList();          // working
@@ -20,10 +38,6 @@ public:
     void addBack(const T &elem);  // working
     void removeFront();           // working
     void removeBack();            // working
-
-protected:
-    void add(Node<T> *node, const T &elem);
-    void remove(Node<T> *v);
 };
 
 template <typename T>
@@ -71,67 +85,53 @@ const T &DoublyLinkedList<T>::back() const
 template <typename T>
 void DoublyLinkedList<T>::addFront(const T &elem)
 {
-    Node<T> *tmp = new Node<T>(elem);
-    tmp->set_next(header->get_next());
-    tmp->set_prev(*header);
-    header->get_next().set_prev(*tmp);
-    header->set_next(*tmp);
-    tmp = nullptr;
+    this->add(&header->get_next(), elem);
+    // Node<T> *tmp = new Node<T>(elem);
+    // tmp->set_next(header->get_next());
+    // tmp->set_prev(*header);
+    // header->get_next().set_prev(*tmp);
+    // header->set_next(*tmp);
+    // tmp = nullptr;
 }
 
 template <typename T>
 void DoublyLinkedList<T>::addBack(const T &elem)
 {
-    Node<T> *tmp = new Node<T>(elem);
-    tmp->set_next(*trailer);
-    tmp->set_prev(trailer->get_prev());
-    trailer->get_prev().set_next(*tmp);
-    trailer->set_prev(*tmp);
-    tmp = nullptr;
+    this->add(trailer, elem);
+    // Node<T> *tmp = new Node<T>(elem);
+    // tmp->set_next(*trailer);
+    // tmp->set_prev(trailer->get_prev());
+    // trailer->get_prev().set_next(*tmp);
+    // trailer->set_prev(*tmp);
+    // tmp = nullptr;
 }
 
 template <typename T>
 void DoublyLinkedList<T>::removeFront()
 {
-    Node<T> *tmp = nullptr;
-    if (this->empty())
-        throw std::out_of_range("List is empty!");
-    tmp = &header->get_next();
-    header->get_next().get_next().set_prev(*header);
-    header->set_next(header->get_next().get_next());
-    delete tmp;
-    tmp = nullptr;
+    this->remove(&(header->get_next()));
+    // Node<T> *tmp = nullptr;
+    // if (this->empty())
+    //     throw std::out_of_range("List is empty!");
+    // tmp = &header->get_next();
+    // header->get_next().get_next().set_prev(*header);
+    // header->set_next(header->get_next().get_next());
+    // delete tmp;
+    // tmp = nullptr;
 }
 
 template <typename T>
 void DoublyLinkedList<T>::removeBack()
 {
-    Node<T> *tmp = nullptr;
-    if (this->empty())
-        throw std::out_of_range("List is empty!");
-    tmp = &trailer->get_prev();
-    trailer->get_prev().get_prev().set_next(*trailer);
-    trailer->set_prev(trailer->get_prev().get_prev());
-    delete tmp;
-    tmp = nullptr;
+    this->remove(&trailer->get_prev());
+    // Node<T> *tmp = nullptr;
+    // if (this->empty())
+    //     throw std::out_of_range("List is empty!");
+    // tmp = &trailer->get_prev();
+    // trailer->get_prev().get_prev().set_next(*trailer);
+    // trailer->set_prev(trailer->get_prev().get_prev());
+    // delete tmp;
+    // tmp = nullptr;
 }
 
-template <typename T>
-void DoublyLinkedList<T>::add(Node<T> *node, const T &elem)
-{
-    Node<T> *tmp = new Node<T>(elem);
-    tmp->set_next(*node);
-    tmp->set_prev(node->get_prev());
-    node->get_prev().set_next(*tmp);
-    node->set_prev(*tmp);
-    tmp = nullptr;
-}
-
-template <typename T>
-void remove(Node<T> *v)
-{
-    v->get_prev().set_next(v->get_next());
-    v->get_next().set_prev(v->get_prev());
-    delete v;
-}
 #endif

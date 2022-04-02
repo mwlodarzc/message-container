@@ -19,7 +19,6 @@ int main()
     list.removeFront();
     std::cout << list.front() << std::endl;
     std::cout << list.back() << std::endl;
-    // std::cin >> input;
     //     switch (input)
     //     {
     //     case 'a':

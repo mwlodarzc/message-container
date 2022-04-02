@@ -1,52 +1,39 @@
-#ifndef QUEUE_HH
-#define QUEUE_HH
+#ifndef PRIORITY_QUEUE_HH
+#define PRIORITY_QUEUE_HH
+#include "DoublyLinkedList.hh"
 
-template <typename T>
-class Queue
+template <typename T, typename C>
+class PriorityQueue
 {
 private:
-    CircleList<T> list;
-    int _size = 0;
+    DoublyLinkedList<T> list;
+    int _size_ = 0;
 
 public:
-    int size() const { return _size; };
+    int size() const { return _size_; };
     bool empty() const { return list.empty(); };
-    void enqueue(const T &e);
-    void dequeue();
-    const T &front() const;
+    void insert(const T &elem);
+    const T &min() const;
+    const T &removeMin() const;
 };
 
-template <typename T>
-void Queue<T>::enqueue(const T &e)
+template <typename T, typename C>
+void PriorityQueue<T, C>::insert(const T &elem)
 {
-    list.add(e);
-    _size++;
-}
-
-template <typename T>
-void Queue<T>::dequeue()
-{
-    try
+    if (list.empty())
+        list.addFront(elem);
+    else
     {
-        list.remove();
-    }
-    catch (const std::out_of_range &e)
-    {
-        throw std::out_of_range("Queue empty!");
-    }
-    _size--;
-}
-template <typename T>
-const T &Queue<T>::front() const
-{
-    try
-    {
-        return list.back();
-    }
-    catch (const std::out_of_range &e)
-    {
-        throw std::out_of_range("Queue empty!");
+        
     }
 }
 
+template <typename T, typename C>
+const T &PriorityQueue<T, C>::min() const
+{
+}
+template <typename T, typename C>
+const T &PriorityQueue<T, C>::removeMin() const
+{
+}
 #endif
