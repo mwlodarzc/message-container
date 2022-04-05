@@ -10,8 +10,20 @@ private:
     Node<T> *n;
 
 public:
-    Position(Node<T> *n_ = NULL) : n(n_) {}
-    const T &operator*() { return n->element; }
+    Position()
+    {
+        n = new Node<T>();
+    }
+    Position(const Position &pos)
+    {
+        n->element = pos.element;
+    }
+    Position(Node<T> *n_) : n(n_) {}
+    T operator*()
+    {
+        std::cout << n->get_elem();
+        return n->get_elem();
+    }
     Position left() const { return Position(n->left); }
     Position right() const { return Position(n->right); }
     Position parent() const { return Position(n->parent); }

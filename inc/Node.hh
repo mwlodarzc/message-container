@@ -9,7 +9,7 @@ private:
     inline static int created = 0;
     inline static int exists = 0;
 
-protected:
+public:
     T element;
     Node *parent;
     Node *left;
@@ -21,16 +21,21 @@ public:
         created++;
         exists++;
     }
-    Node(const T &element_) : element{element_}
+    Node(const T &element_) : element{element_}, parent(NULL), left(NULL), right(NULL)
     {
         created++;
         exists++;
     };
-    Node(const T &elem_, Node &parent_, Node &left_, Node &right_) : element{element_}, parent(parent_), left(left_), right(right_)
+    Node(const T &element_, Node &parent_, Node &left_, Node &right_) : element{element_}, parent(parent_), left(left_), right(right_)
     {
         created++;
         exists++;
     };
+    T &get_elem()
+    {
+        std::cout << element;
+        return element;
+    }
     ~Node() { exists--; }
     static int existing_number() { return exists; }
     static int created_number() { return created; }

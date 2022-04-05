@@ -15,18 +15,26 @@ public:
     // inline
     Vector() : capacity(0), n_of_elements(0), elements(NULL) {}
     Vector(T *e, size_t arr_size); // check in tests
-    ~Vector() { delete elements; };
-    int size() const { return n_of_elements; }
-    bool empty() const { return (n_of_elements == 0); }
-    T &operator[](int i) { return at(i); }
+    Vector(int i);
+    ~Vector();
+    int size() const;
+    bool empty() const;
     T &at(int i);
-    void set(int i, const T &elem) { elements[i] = elem; }
-
-    // tbd
+    void set(int i, const T &elem);
     void insert(int i, const T &elem);
     void erase(int i);
     void reserve(int N);
+    T &operator[](int i) { return at(i); }
+
+protected:
 };
+template <typename T>
+Vector<T>::Vector(int i)
+{
+    elements = new T[i];
+    capacity = i;
+    n_of_elements = 0;
+}
 template <typename T>
 Vector<T>::Vector(T *e, size_t arr_size)
 {
@@ -36,6 +44,14 @@ Vector<T>::Vector(T *e, size_t arr_size)
     n_of_elements = arr_size;
     capacity = arr_size;
 }
+template <typename T>
+Vector<T>::~Vector() {}
+
+template <typename T>
+int Vector<T>::size() const { return n_of_elements; }
+
+template <typename T>
+bool Vector<T>::empty() const { return (n_of_elements == 0); }
 
 template <typename T>
 T &Vector<T>::at(int i)
@@ -46,8 +62,13 @@ T &Vector<T>::at(int i)
 }
 
 template <typename T>
+void Vector<T>::set(int i, const T &elem) { elements[i] = elem; }
+
+template <typename T>
 void Vector<T>::erase(int i)
 {
+    if (i < 0 || i >= n_of_elements)
+        throw std::out_of_range("Indexed array element is out of range!");
     for (int j = i + 1; j < n_of_elements; j++)
         elements[j - 1] = elements[j];
     n_of_elements--;
