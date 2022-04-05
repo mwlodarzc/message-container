@@ -24,7 +24,6 @@ void PriorityQueue<T, C>::insert(const T &elem)
         list.addFront(elem);
     else
     {
-        
     }
 }
 
