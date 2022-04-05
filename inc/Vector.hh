@@ -1,6 +1,7 @@
 #ifndef VECTOR_HH
 #define VECTOR_HH
 #include <stdexcept>
+#include <iostream>
 // Vector class based on Extandable Array
 template <typename T>
 class Vector
@@ -13,7 +14,7 @@ private:
 public:
     // inline
     Vector() : capacity(0), n_of_elements(0), elements(NULL) {}
-    Vector(const T &e) : capacity(size(e)), n_of_elements(size(e)), elements(e) {}
+    Vector(T *e, size_t arr_size); // check in tests
     ~Vector() { delete elements; };
     int size() const { return n_of_elements; }
     bool empty() const { return (n_of_elements == 0); }
@@ -26,6 +27,16 @@ public:
     void erase(int i);
     void reserve(int N);
 };
+template <typename T>
+Vector<T>::Vector(T *e, size_t arr_size)
+{
+    elements = new T[arr_size];
+    for (long unsigned int i = 0; i < arr_size; i++)
+        elements[i] = e[i];
+    n_of_elements = arr_size;
+    capacity = arr_size;
+}
+
 template <typename T>
 T &Vector<T>::at(int i)
 {
