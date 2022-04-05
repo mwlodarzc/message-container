@@ -1,12 +1,12 @@
 #ifndef PRIORITY_QUEUE_HH
 #define PRIORITY_QUEUE_HH
-#include "DoublyLinkedList.hh"
+#include "LinkedBinaryTree.hh"
 
 template <typename T, typename C>
 class PriorityQueue
 {
 private:
-    DoublyLinkedList<T> list;
+    LinkedBinaryTree<T> list;
     int _size_ = 0;
 
 public:
@@ -24,8 +24,7 @@ void PriorityQueue<T, C>::insert(const T &elem)
         list.addFront(elem);
     else
     {
-        
-    }
+        }
 }
 
 template <typename T, typename C>
