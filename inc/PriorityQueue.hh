@@ -16,7 +16,7 @@ public:
     int size() const;
     bool empty() const;
     void insert(const T &elem);
-    const T &min() const;
+    const T &min();
     void removeMin() const;
 };
 template <typename T>
@@ -26,20 +26,20 @@ template <typename T>
 bool PriorityQueue<T>::empty() const { return this->size() == 0; }
 
 template <typename T>
-const T &PriorityQueue<T>::min() const { return *elements.root(); }
+const T &PriorityQueue<T>::min() { return *elements.root(); }
 
 template <typename T>
 void PriorityQueue<T>::insert(const T &elem)
 {
     elements.addLast(elem);
-    Position<T> elem_pos = elements.last();
-    while (!elements.isRoot(elem_pos))
+    Position<T> last_elem = elements.last();
+    while (!elements.isRoot(last_elem))
     {
-        Position<T> tmp = elements.parent(elem_pos);
-        if (!isLess(*elem_pos, *tmp))
+        Position<T> parent_elem = elements.parent(last_elem);
+        if (!isLess(*parent_elem, *last_elem))
             break;
-        elements.swap(elem_pos, tmp);
-        elem_pos = tmp;
+        elements.swap(last_elem, parent_elem);
+        last_elem = parent_elem;
     }
 }
 

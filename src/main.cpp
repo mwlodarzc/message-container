@@ -3,40 +3,67 @@
 #include <chrono>
 #include <fstream>
 #include <iomanip>
-
-#include "PriorityQueue.hh"
+#include "BinaryTree.hh"
+// #include "Vector.hh"
+// #include "PriorityQueue.hh"
 #include "Comparator.hh"
 
 int main()
 {
-    BinaryTree<int> tree;
-    tree.addLast(11);
-    tree.addLast(123);
-    std::cout << *tree.last() << std::endl;
-    // Node<int> n1(5);
-    // Node<int> n2(7);
-    // Position<int> a(&n1);
-    // Position<int> b(&n2);
     // Vector<Position<int>> v(1);
-    // v.insert(0, NULL);
-    // std::cout << v.size() << std::endl;
-    // v.insert(v.size(), a);
-    // std::cout << *v[v.size() - 1] << std::endl;
-    // std::cout << v.size() << std::endl;
-    // v.insert(v.size(), b);
-    // std::cout << *v[v.size() - 1] << std::endl;
-    // std::cout << v.size() << std::endl;
+    Node<int> *n1 = new Node<int>(1);
+    Node<int> *n2 = new Node<int>(2);
+    n1->set_element(4);
+    std::cout << n1->get_element() << std::endl;
+    n1->set_right(n2);
+    std::cout << (n1->get_right()->get_element()) << std::endl;
+    // const Position<int> *p1 = new Position<int>(n1);
+    // Position<int> *p2 = new Position<int>(n2);
+    // std::cout << p1->isExternal() << std::endl;
+    // std::cout << p1->isRoot() << std::endl;
+    // std::cout << (&p1->get_left() == NULL) << std::endl;
+    // std::cout << (&p1->get_right() == NULL) << std::endl;
+    // std::cout << (&p1->get_parent() == NULL) << std::endl;
 
-    // Position<int> c;
-    // std::cout
-    // << (tree.pos(2).get_posit_elem()) << std::endl;
+    // Node<int> *n3 = new Node<int>(3);
+    // Node<int> *n4 = new Node<int>(4);
+    // Node<int> *n5 = new Node<int>(5);
 
-    // std::cout << queue.min() << std::endl;
+    // Position<int> *p3 = new Position<int>(n3);
+    // Position<int> *p4 = new Position<int>(n4);
+    // Position<int> *p5 = new Position<int>(n5);
+    // v.insert(0, *p1);
+    // v.insert(0, *p2);
+    // v.insert(0, *p3);
+    // v.insert(0, *p4);
+    // v.insert(0, *p5);
+    // Vector<Position<int>>::Iterator iter(p1);
+    // iter++;
+    // iter++;
+    // std::cout << iter - v.begin() << std::endl;
+
+    // BinaryTree<int> tree;
+    // tree.addLast(11);
+    // std::cout << tree.last().isRoot() << std::endl;
+    // tree.addLast(12);
+    // tree.addLast(13);
+    // std::cout << tree.last().isRoot() << std::endl;
+    // tree.addLast(14);
+    // std::cout << tree.last().isRoot() << std::endl;
+    // tree.addLast(15);
+    // std::cout << tree.last().right().isRoot() << std::endl;
+    // tree.addLast(16);
+    // std::cout << tree.last().isRoot() << std::endl;
+
+    // PriorityQueue<int> queue;
     // queue.insert(2);
     // std::cout << queue.min() << std::endl;
     // queue.insert(5);
     // std::cout << queue.min() << std::endl;
     // queue.insert(1);
+    // std::cout << queue.min() << std::endl;
+    // // queue.removeMin();
+    // queue.insert(6);
     // std::cout << queue.min() << std::endl;
 
     // char *current_message = new char[10000];
@@ -72,5 +99,5 @@ int main()
     // // std::cout << "Elapsed time: " << elapsed.count() << std::endl;
     // file.close();
     // delete data_milestones;
-    // return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }

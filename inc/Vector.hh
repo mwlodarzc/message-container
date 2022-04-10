@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <iostream>
 // Vector class based on Extandable Array
+
 template <typename T>
 class Vector
 {
@@ -10,6 +11,27 @@ private:
     int capacity;      // current array size;
     int n_of_elements; // number of elements in vector
     T *elements;
+
+public:
+    class Iterator
+    {
+    private:
+        T *current_element;
+
+    public:
+        Iterator(T *cur) : current_element(cur) {}
+        Iterator(const T *cur);
+        Iterator &operator++();
+        Iterator operator++(int);
+        Iterator &operator--();
+        Iterator operator--(int);
+        int operator-(const Iterator &iter) const;
+        Iterator operator[](int i) const;
+        Iterator *operator->();
+        T &operator*() const;
+        bool operator==(const Iterator &iter) const;
+        bool operator!=(const Iterator &iter) const;
+    };
 
 public:
     // inline
@@ -25,8 +47,8 @@ public:
     void erase(int i);
     void reserve(int N);
     T &operator[](int i) { return at(i); }
-
-protected:
+    Iterator begin();
+    Iterator end();
 };
 template <typename T>
 Vector<T>::Vector(int i)
@@ -97,5 +119,89 @@ void Vector<T>::insert(int i, const T &elem)
         elements[j + 1] = elements[j];
     elements[i] = elem;
     n_of_elements++;
+}
+
+template <typename T>
+typename Vector<T>::Iterator Vector<T>::begin()
+{
+    return Iterator(elements);
+}
+
+template <typename T>
+typename Vector<T>::Iterator Vector<T>::end()
+{
+    return Iterator(elements + n_of_elements);
+}
+template <typename T>
+Vector<T>::Iterator::Iterator(const T *cur)
+{
+    current_element = (T *)cur;
+}
+
+template <typename T>
+typename Vector<T>::Iterator &Vector<T>::Iterator::operator++()
+{
+    current_element++;
+    return *this;
+}
+
+template <typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int)
+{
+    Iterator tmp = *this;
+    ++(*this);
+    return tmp;
+}
+
+template <typename T>
+typename Vector<T>::Iterator &Vector<T>::Iterator::operator--()
+{
+    current_element--;
+    return *this;
+}
+
+template <typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator--(int)
+{
+    Iterator tmp = *this;
+    --(*this);
+    return tmp;
+}
+
+template <typename T>
+int Vector<T>::Iterator::operator-(const Iterator &iter) const
+{
+    return current_element - iter.current_element;
+}
+
+template <typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator[](int i) const
+{
+
+    return (current_element + i);
+}
+
+template <typename T>
+typename Vector<T>::Iterator *Vector<T>::Iterator::operator->()
+{
+    return current_element;
+}
+
+template <typename T>
+T &Vector<T>::Iterator::operator*() const
+{
+    return *current_element;
+}
+
+template <typename T>
+bool Vector<T>::Iterator::operator==(const Iterator &iter) const
+{
+    return current_element == iter.current_element;
+}
+
+template <typename T>
+bool Vector<T>::Iterator::operator!=(const Iterator &iter) const
+{
+    return !(current_element == iter.current_element);
 }
 #endif
