@@ -12,13 +12,15 @@ private:
 
 public:
     Position() { n = NULL; };
-    T &operator*() { return n->get_element(); }
+    const T &operator*() { return n->get_element(); }
+    void operator[](const T &elem) { return n->set_element(elem); }
     Position(Position &pos) : n(pos.get_node()){};
     Position(Node<T> *n_) : n(n_){};
+    Position(const Node<T> *n_) : n((Node<T> *)n_){};
     Position left() const { return Position(n->get_left()); }
     Position right() const { return Position(n->get_right()); }
     Position parent() const { return Position(n->get_parent()); }
     bool isRoot() const { return n->get_parent() == NULL; }
-    bool isExternal() const { return *n->get_left() == NULL && n->get_right() == NULL; }
+    bool isExternal() const { return n->get_left() == NULL && n->get_right() == NULL; }
 };
 #endif
