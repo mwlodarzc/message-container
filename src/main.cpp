@@ -11,19 +11,18 @@
 int main()
 {
     // Vector<Position<int>> v(1);
-    Node<int> *n1 = new Node<int>(1);
-    Node<int> *n2 = new Node<int>(2);
-    n1->set_element(4);
-    std::cout << n1->get_element() << std::endl;
-    n1->set_right(n2);
-    std::cout << (n1->get_right()->get_element()) << std::endl;
-    // const Position<int> *p1 = new Position<int>(n1);
+    // Node<int> *n1 = new Node<int>(1);
+    // Node<int> *n2 = new Node<int>(2);
+
+    // Position<int> *p1 = new Position<int>(n1);
     // Position<int> *p2 = new Position<int>(n2);
     // std::cout << p1->isExternal() << std::endl;
     // std::cout << p1->isRoot() << std::endl;
-    // std::cout << (&p1->get_left() == NULL) << std::endl;
-    // std::cout << (&p1->get_right() == NULL) << std::endl;
-    // std::cout << (&p1->get_parent() == NULL) << std::endl;
+    // p1->set_parent(p2);
+    // p1->set_left(p2);
+    // p1->set_right(p2);
+    // std::cout << p1->isExternal() << std::endl;
+    // std::cout << p1->isRoot() << std::endl;
 
     // Node<int> *n3 = new Node<int>(3);
     // Node<int> *n4 = new Node<int>(4);
