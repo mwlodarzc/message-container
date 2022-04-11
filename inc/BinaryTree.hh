@@ -59,7 +59,6 @@ typename BinaryTree<T>::iter BinaryTree<T>::left(const typename BinaryTree<T>::i
 {
     if (!hasLeft(p))
         throw(std::range_error("Position doesnt have a left Node"));
-
     return (pos(2 * idx(p)));
 }
 

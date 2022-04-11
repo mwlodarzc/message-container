@@ -17,7 +17,7 @@ public:
     bool empty() const;
     void insert(const T &elem);
     const T &min();
-    void removeMin() const;
+    void removeMin();
 };
 template <typename T>
 int PriorityQueue<T>::size() const { return elements.size(); }
@@ -36,7 +36,7 @@ void PriorityQueue<T>::insert(const T &elem)
     while (!elements.isRoot(last_elem))
     {
         typename BinaryTree<T>::iter parent_elem = elements.parent(last_elem);
-        if (!isLess(**parent_elem, **last_elem))
+        if (!isLess(**last_elem, **parent_elem))
             break;
         elements.swap(last_elem, parent_elem);
         last_elem = parent_elem;
@@ -44,24 +44,25 @@ void PriorityQueue<T>::insert(const T &elem)
 }
 
 template <typename T>
-void PriorityQueue<T>::removeMin() const
+void PriorityQueue<T>::removeMin()
 {
     if (this->size() == 1)
         elements.removeLast();
     else
     {
-        typename BinaryTree<T>::iter tmp = elements.root();
-        elements.swap(tmp, elements.last());
+        typename BinaryTree<T>::iter parent_elem = elements.root();
+        typename BinaryTree<T>::iter last_elem = elements.last();
+        elements.swap(parent_elem, last_elem);
         elements.removeLast();
-        while (elements.hasLeft(tmp))
+        while (elements.hasLeft(parent_elem))
         {
-            typename BinaryTree<T>::iter tmp_child = elements.left(tmp);
-            if (elements.hasRight(tmp) && isLess(**elements.right(tmp), **tmp_child))
-                tmp_child = elements.right(tmp);
-            if (isLess(*tmp_child, *tmp))
+            typename BinaryTree<T>::iter child_elem = elements.left(parent_elem);
+            if (elements.hasRight(parent_elem) && isLess(**elements.right(parent_elem), **child_elem))
+                child_elem = elements.right(parent_elem);
+            if (isLess(**child_elem, **parent_elem))
             {
-                elements.swap(tmp, tmp_child);
-                tmp = tmp_child;
+                elements.swap(parent_elem, child_elem);
+                parent_elem = child_elem;
             }
             else
                 break;

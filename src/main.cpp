@@ -62,14 +62,25 @@ int main()
     // tree.swap(tree.root(), tree.last());
 
     PriorityQueue<int> queue;
-    queue.insert(2);
+    queue.insert(6);
+    std::cout << queue.min() << std::endl;
+    queue.insert(7);
     std::cout << queue.min() << std::endl;
     queue.insert(5);
     std::cout << queue.min() << std::endl;
+    queue.removeMin();
+    queue.insert(9);
+    std::cout << queue.min() << std::endl;
+    queue.insert(3);
+    std::cout << queue.min() << std::endl;
+    queue.insert(2);
+    std::cout << queue.min() << std::endl;
     queue.insert(1);
     std::cout << queue.min() << std::endl;
-    // // queue.removeMin();
-    // queue.insert(6);
+    queue.removeMin();
+    queue.insert(6);
+    std::cout << queue.min() << std::endl;
+
     // std::cout << queue.min() << std::endl;
 
     // char *current_message = new char[10000];
