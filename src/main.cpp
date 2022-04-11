@@ -9,11 +9,11 @@
 
 int main()
 {
-    Node<IndexedLetter> *n1 = new Node<IndexedLetter>({2, 'c'});
-    Node<IndexedLetter> *n2 = new Node<IndexedLetter>({1, 'd'});
-    Position<IndexedLetter> *p1 = new Position<IndexedLetter>(n1);
-    Position<IndexedLetter> *p2 = new Position<IndexedLetter>(n2);
-    std::cout << IdLetComparator::isLess(*p1, *p2) << std::endl;
+    // Node<IndexedLetter> *n1 = new Node<IndexedLetter>({2, 'c'});
+    // Node<IndexedLetter> *n2 = new Node<IndexedLetter>({1, 'd'});
+    // Position<IndexedLetter> *p1 = new Position<IndexedLetter>(n1);
+    // Position<IndexedLetter> *p2 = new Position<IndexedLetter>(n2);
+    // std::cout << IdLetComparator::isLess(*p1, *p2) << std::endl;
 
     // Vector<Position<int>> v(1);
     // Node<int> *n1 = new Node<int>(1);
@@ -64,25 +64,11 @@ int main()
     // std::cout << **(tree.last()) << std::endl;
     // tree.swap(tree.root(), tree.last());
 
-    // PriorityQueue<int> queue;
-    // queue.insert(6);
-    // std::cout << queue.min() << std::endl;
-    // queue.insert(7);
-    // std::cout << queue.min() << std::endl;
-    // queue.insert(5);
-    // std::cout << queue.min() << std::endl;
-    // queue.removeMin();
-    // queue.insert(9);
-    // std::cout << queue.min() << std::endl;
-    // queue.insert(3);
-    // std::cout << queue.min() << std::endl;
-    // queue.insert(2);
-    // std::cout << queue.min() << std::endl;
-    // queue.insert(1);
-    // std::cout << queue.min() << std::endl;
-    // queue.removeMin();
-    // queue.insert(6);
-    // std::cout << queue.min() << std::endl;
+    PriorityQueue<IndexedLetter, IdLetComparator> queue;
+    queue.insert({1, 'c'});
+    std::cout << queue.min().key << " " << queue.min().value << std::endl;
+    queue.insert({0, 'd'});
+    std::cout << queue.min().key << " " << queue.min().value << std::endl;
 
     // std::cout << queue.min() << std::endl;
 

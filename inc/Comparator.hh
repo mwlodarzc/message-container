@@ -6,7 +6,7 @@
 class IdLetComparator
 {
 public:
-    static bool isLess(Position<IndexedLetter> &first, Position<IndexedLetter> &second)
+    bool compare(Position<IndexedLetter> &first, Position<IndexedLetter> &second) // isLess comparator
     {
         return (*first).key < (*second).key;
     }

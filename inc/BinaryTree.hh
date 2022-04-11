@@ -16,7 +16,7 @@ public:
 
     BinaryTree() : positions(1), _root(NULL) // works
     {
-        Node<T> *tmp = new Node<T>(0);
+        Node<T> *tmp = new Node<T>();
         Position<T> *tmp_pos = new Position<T>(tmp);
         positions.insert(0, *tmp_pos);
     }
