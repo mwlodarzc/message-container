@@ -26,17 +26,17 @@ template <typename T>
 bool PriorityQueue<T>::empty() const { return this->size() == 0; }
 
 template <typename T>
-const T &PriorityQueue<T>::min() { return *elements.root(); }
+const T &PriorityQueue<T>::min() { return **elements.root(); }
 
 template <typename T>
 void PriorityQueue<T>::insert(const T &elem)
 {
     elements.addLast(elem);
-    Position<T> last_elem = elements.last();
+    typename BinaryTree<T>::iter last_elem = elements.last();
     while (!elements.isRoot(last_elem))
     {
-        Position<T> parent_elem = elements.parent(last_elem);
-        if (!isLess(*parent_elem, *last_elem))
+        typename BinaryTree<T>::iter parent_elem = elements.parent(last_elem);
+        if (!isLess(**parent_elem, **last_elem))
             break;
         elements.swap(last_elem, parent_elem);
         last_elem = parent_elem;
@@ -50,13 +50,13 @@ void PriorityQueue<T>::removeMin() const
         elements.removeLast();
     else
     {
-        Position<T> tmp = elements.root();
+        typename BinaryTree<T>::iter tmp = elements.root();
         elements.swap(tmp, elements.last());
         elements.removeLast();
         while (elements.hasLeft(tmp))
         {
-            Position<T> tmp_child = elements.left(tmp);
-            if (elements.hasRight(tmp) && isLess(*elements.right(tmp), *tmp_child))
+            typename BinaryTree<T>::iter tmp_child = elements.left(tmp);
+            if (elements.hasRight(tmp) && isLess(**elements.right(tmp), **tmp_child))
                 tmp_child = elements.right(tmp);
             if (isLess(*tmp_child, *tmp))
             {

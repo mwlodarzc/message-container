@@ -12,7 +12,7 @@ private:
 public:
     Position() { n = NULL; };                                                           // works
     T &operator*() { return n->get_element(); }                                         // works
-    Position(Position &pos) : n(pos.get_node()){};                                      // works
+    Position(Position &pos) : n((Node<T> *)pos.get_node()){};                           // works
     Position(Node<T> *n_) : n(n_){};                                                    // works
     Position(const Node<T> *n_) : n((Node<T> *)n_){};                                   // works
     Position get_left() const { return Position(n->get_left()); }                       // works

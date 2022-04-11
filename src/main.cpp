@@ -3,9 +3,9 @@
 #include <chrono>
 #include <fstream>
 #include <iomanip>
-#include "BinaryTree.hh"
+// #include "BinaryTree.hh"
 // #include "Vector.hh"
-// #include "PriorityQueue.hh"
+#include "PriorityQueue.hh"
 #include "Comparator.hh"
 
 int main()
@@ -16,6 +16,11 @@ int main()
 
     // Position<int> *p1 = new Position<int>(n1);
     // Position<int> *p2 = new Position<int>(n2);
+    // v.insert(0, *p1);
+    // v.insert(1, *p2);
+
+    // std::cout << **v.begin() << std::endl;
+    // std::cout << **(--v.end()) << std::endl;
     // std::cout << p1->isExternal() << std::endl;
     // std::cout << p1->isRoot() << std::endl;
     // p1->set_parent(p2);
@@ -43,24 +48,26 @@ int main()
 
     // BinaryTree<int> tree;
     // tree.addLast(11);
-    // std::cout << tree.last().isRoot() << std::endl;
     // tree.addLast(12);
     // tree.addLast(13);
-    // std::cout << tree.last().isRoot() << std::endl;
     // tree.addLast(14);
-    // std::cout << tree.last().isRoot() << std::endl;
     // tree.addLast(15);
-    // std::cout << tree.last().right().isRoot() << std::endl;
     // tree.addLast(16);
-    // std::cout << tree.last().isRoot() << std::endl;
+    // std::cout << tree.idx(tree.pos(2)) << std::endl;
+    // std::cout << tree.isRoot(tree.root()) << std::endl;
+    // std::cout << tree.hasLeft(tree.root()) << std::endl;
+    // std::cout << tree.hasRight(tree.root()) << std::endl;
+    // std::cout << **(tree.last()) << std::endl;
+    // std::cout << **(tree.last()) << std::endl;
+    // tree.swap(tree.root(), tree.last());
 
-    // PriorityQueue<int> queue;
-    // queue.insert(2);
-    // std::cout << queue.min() << std::endl;
-    // queue.insert(5);
-    // std::cout << queue.min() << std::endl;
-    // queue.insert(1);
-    // std::cout << queue.min() << std::endl;
+    PriorityQueue<int> queue;
+    queue.insert(2);
+    std::cout << queue.min() << std::endl;
+    queue.insert(5);
+    std::cout << queue.min() << std::endl;
+    queue.insert(1);
+    std::cout << queue.min() << std::endl;
     // // queue.removeMin();
     // queue.insert(6);
     // std::cout << queue.min() << std::endl;

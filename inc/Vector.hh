@@ -137,7 +137,6 @@ Vector<T>::Iterator::Iterator(const T *cur)
 {
     current_element = (T *)cur;
 }
-
 template <typename T>
 typename Vector<T>::Iterator &Vector<T>::Iterator::operator++()
 {

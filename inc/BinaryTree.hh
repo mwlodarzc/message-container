@@ -12,77 +12,99 @@ private:
     Node<T> *_root;
 
 public:
-    BinaryTree() : positions(1), _root(NULL)
+    typedef typename Vector<Position<T>>::Iterator iter;
+
+    BinaryTree() : positions(1), _root(NULL) // works
     {
-        positions.insert(0, NULL);
+        Node<T> *tmp = new Node<T>(0);
+        Position<T> *tmp_pos = new Position<T>(tmp);
+        positions.insert(0, *tmp_pos);
     }
-    int size() const;
-    Position<T> left(const Position<T> &p);
-    Position<T> right(const Position<T> &p);
-    Position<T> parent(const Position<T> &p);
-    bool hasLeft(const Position<T> &p);
-    bool hasRight(const Position<T> &p);
-    bool isRoot(const Position<T> &p);
-    Position<T> root();
-    Position<T> last();
+    int size() const; // works
+    iter left(const iter &p);
+    iter right(const iter &p);
+    iter parent(const iter &p);
+    bool hasLeft(const iter &p);  // works
+    bool hasRight(const iter &p); // works
+    bool isRoot(const iter &p);   // works
+    iter root();
+    iter last();
     void addLast(const T &elem);
     void removeLast();
-    void swap(Position<T> &p, Position<T> &q);
+    void swap(iter &p, iter &q);
 
 public:
-    typedef typename Vector<Position<T>>::Iterator iter;
-    Position<T> pos(int i);
-    int idx(const Position<T> &p);
+    iter pos(int i);
+    int idx(const iter &p);
 };
 template <typename T>
-Position<T> BinaryTree<T>::pos(int i)
+typename BinaryTree<T>::iter BinaryTree<T>::pos(int i)
 {
     iter it(positions.begin());
-    return *(it[i]);
+    return (it[i]);
 }
 
 template <typename T>
-int BinaryTree<T>::idx(const Position<T> &p)
+int BinaryTree<T>::idx(const typename BinaryTree<T>::iter &p)
 {
-    iter it(&p);
-    return positions.end() - positions.begin();
+    // std::cout << p - position.begin() << std::endl;
+    return p - positions.begin();
 }
 
 template <typename T>
 int BinaryTree<T>::size() const { return positions.size() - 1; } // unsure
 
 template <typename T>
-Position<T> BinaryTree<T>::left(const Position<T> &p) { return (pos(2 * idx(p))); }
-
-template <typename T>
-Position<T> BinaryTree<T>::right(const Position<T> &p) { return (pos(2 * idx(p) + 1)); }
-
-template <typename T>
-Position<T> BinaryTree<T>::parent(const Position<T> &p) { return (pos(idx(p) / 2)); }
-
-template <typename T>
-bool BinaryTree<T>::hasLeft(const Position<T> &p) { return 2 * idx(p) <= size(); }
-
-template <typename T>
-bool BinaryTree<T>::hasRight(const Position<T> &p) { return 2 * idx(p) + 1 <= size(); }
-
-template <typename T>
-bool BinaryTree<T>::isRoot(const Position<T> &p) { return idx(p) == 1; }
-
-template <typename T>
-Position<T> BinaryTree<T>::root()
+typename BinaryTree<T>::iter BinaryTree<T>::left(const typename BinaryTree<T>::iter &p)
 {
-    if (size() == 0)
-        throw(std::range_error("Binary Tree is empty!"));
-    return positions[1];
+    if (!hasLeft(p))
+        throw(std::range_error("Position doesnt have a left Node"));
+
+    return (pos(2 * idx(p)));
 }
 
 template <typename T>
-Position<T> BinaryTree<T>::last()
+typename BinaryTree<T>::iter BinaryTree<T>::right(const typename BinaryTree<T>::iter &p)
 {
+    if (!hasRight(p))
+        throw(std::range_error("Position doesnt have a right Node"));
+
+    return (pos(2 * idx(p) + 1));
+}
+
+template <typename T>
+typename BinaryTree<T>::iter BinaryTree<T>::parent(const typename BinaryTree<T>::iter &p)
+{
+    if (isRoot(p))
+        throw(std::range_error("Root's parent cannot be accessed"));
+    return (pos(idx(p) / 2));
+}
+
+template <typename T>
+bool BinaryTree<T>::hasLeft(const typename BinaryTree<T>::iter &p) { return 2 * idx(p) <= size(); }
+
+template <typename T>
+bool BinaryTree<T>::hasRight(const typename BinaryTree<T>::iter &p) { return 2 * idx(p) + 1 <= size(); }
+
+template <typename T>
+bool BinaryTree<T>::isRoot(const typename BinaryTree<T>::iter &p) { return idx(p) == 1; }
+
+template <typename T>
+typename BinaryTree<T>::iter BinaryTree<T>::root()
+{
+    iter it(positions.begin());
     if (size() == 0)
         throw(std::range_error("Binary Tree is empty!"));
-    return positions[size()];
+    return it[1];
+}
+
+template <typename T>
+typename BinaryTree<T>::iter BinaryTree<T>::last()
+{
+    iter it(positions.begin());
+    if (size() == 0)
+        throw(std::range_error("Binary Tree is empty!"));
+    return it[size()];
 }
 
 template <typename T>
@@ -102,10 +124,10 @@ void BinaryTree<T>::removeLast()
 }
 
 template <typename T>
-void BinaryTree<T>::swap(Position<T> &p, Position<T> &q)
+void BinaryTree<T>::swap(BinaryTree<T>::iter &p, BinaryTree<T>::iter &q)
 {
-    T tmp = *q;
-    *q = *p;
-    *p = tmp;
+    T tmp = **q;
+    **q = **p;
+    **p = tmp;
 }
 #endif
