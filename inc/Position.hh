@@ -10,8 +10,8 @@ private:
     const Node<T> *get_node() const { return n; }
 
 public:
-    Position() { n = NULL; };                                                           // works
-    T &operator*() { return n->get_element(); }                                         // works
+    Position() { n = NULL; }; // works
+    T &operator*() { return n->get_element(); }
     Position(Position &pos) : n((Node<T> *)pos.get_node()){};                           // works
     Position(Node<T> *n_) : n(n_){};                                                    // works
     Position(const Node<T> *n_) : n((Node<T> *)n_){};                                   // works

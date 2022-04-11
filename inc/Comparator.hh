@@ -1,14 +1,14 @@
 #ifndef COMPARATOR_HH
 #define COMPARATOR_HH
 #include "Position.hh"
+#include "IndexedLetter.hh"
 
-template <typename T>
-class Comparator
+class IdLetComparator
 {
 public:
-    bool isLess(const T &first, const T &second)
+    static bool isLess(Position<IndexedLetter> &first, Position<IndexedLetter> &second)
     {
-        return first < second;
+        return (*first).key < (*second).key;
     }
 };
 #endif
