@@ -54,7 +54,7 @@ void PriorityQueue<T, C>::removeMin()
         while (elements.hasLeft(parent_elem))
         {
             typename BinaryTree<T>::iter child_elem = elements.left(parent_elem);
-            if (elements.hasRight(parent_elem) && comparator.compare(**elements.right(parent_elem), **child_elem))
+            if (elements.hasRight(parent_elem) && comparator.compare(*elements.right(parent_elem), *child_elem))
                 child_elem = elements.right(parent_elem);
             if (comparator.compare(*child_elem, *parent_elem))
             {

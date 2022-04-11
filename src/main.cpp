@@ -7,103 +7,66 @@
 #include "Comparator.hh"
 #include "IndexedLetter.hh"
 
+char *get_message(const std::string &filename, int size)
+{
+    char *current_message = new char[size];
+    std::fstream file;
+    char c;
+    file.open(filename, std::ios::in);
+    if (!file)
+    {
+        std::cerr << "File doesnt exist!";
+    }
+    for (int i = 0; i < size && !file.eof(); i++)
+    {
+        file.get(c);
+        current_message[i] = c;
+    }
+    file.close();
+    return current_message;
+}
+
 int main()
 {
-    // Node<IndexedLetter> *n1 = new Node<IndexedLetter>({2, 'c'});
-    // Node<IndexedLetter> *n2 = new Node<IndexedLetter>({1, 'd'});
-    // Position<IndexedLetter> *p1 = new Position<IndexedLetter>(n1);
-    // Position<IndexedLetter> *p2 = new Position<IndexedLetter>(n2);
-    // std::cout << IdLetComparator::isLess(*p1, *p2) << std::endl;
-
-    // Vector<Position<int>> v(1);
-    // Node<int> *n1 = new Node<int>(1);
-    // Node<int> *n2 = new Node<int>(2);
-
-    // v.insert(0, *p1);
-    // v.insert(1, *p2);
-
-    // std::cout << **v.begin() << std::endl;
-    // std::cout << **(--v.end()) << std::endl;
-    // std::cout << p1->isExternal() << std::endl;
-    // std::cout << p1->isRoot() << std::endl;
-    // p1->set_parent(p2);
-    // p1->set_left(p2);
-    // p1->set_right(p2);
-    // std::cout << p1->isExternal() << std::endl;
-    // std::cout << p1->isRoot() << std::endl;
-
-    // Node<int> *n3 = new Node<int>(3);
-    // Node<int> *n4 = new Node<int>(4);
-    // Node<int> *n5 = new Node<int>(5);
-
-    // Position<int> *p3 = new Position<int>(n3);
-    // Position<int> *p4 = new Position<int>(n4);
-    // Position<int> *p5 = new Position<int>(n5);
-    // v.insert(0, *p1);
-    // v.insert(0, *p2);
-    // v.insert(0, *p3);
-    // v.insert(0, *p4);
-    // v.insert(0, *p5);
-    // Vector<Position<int>>::Iterator iter(p1);
-    // iter++;
-    // iter++;
-    // std::cout << iter - v.begin() << std::endl;
-
-    // BinaryTree<int> tree;
-    // tree.addLast(11);
-    // tree.addLast(12);
-    // tree.addLast(13);
-    // tree.addLast(14);
-    // tree.addLast(15);
-    // tree.addLast(16);
-    // std::cout << tree.idx(tree.pos(2)) << std::endl;
-    // std::cout << tree.isRoot(tree.root()) << std::endl;
-    // std::cout << tree.hasLeft(tree.root()) << std::endl;
-    // std::cout << tree.hasRight(tree.root()) << std::endl;
-    // std::cout << **(tree.last()) << std::endl;
-    // std::cout << **(tree.last()) << std::endl;
-    // tree.swap(tree.root(), tree.last());
-
     PriorityQueue<IndexedLetter, IdLetComparator> queue;
-    queue.insert({1, 'c'});
-    std::cout << queue.min().key << " " << queue.min().value << std::endl;
-    queue.insert({0, 'd'});
-    std::cout << queue.min().key << " " << queue.min().value << std::endl;
+    std::string filename = "./LoremIpsum.txt";
+    char *current_message;
+    int size = 26;
 
-    // std::cout << queue.min() << std::endl;
+    // Simulating receiving a message and inputing it into
+    current_message = get_message(filename, size);
+    for (int i = 0; i < size; i++)
+    {
+        std::cout << current_message[i];
+        queue.insert({i, current_message[i]});
+    }
+    std::cout << std::endl;
 
-    // char *current_message = new char[10000];
-    // int x_points = 10001;
-    // int step_size = 10;
-    // int *data_milestones = new int[x_points / step_size];
-    // for (int i = 0; i < x_points; i += step_size)
-    // {
-    //     data_milestones[i] = i;
-    //     std::cout << data_milestones[i] << std::endl;
-    // }
+    // Inputing received message into the PriorityQueue ADT implementation
+    while (!queue.empty())
+    {
+        std::cout << queue.min().value;
+        queue.removeMin();
+    }
+    std::cout << std::endl;
 
-    // std::fstream file;
-    // file.open("./LoremIpsum.txt", std::ios::in);
-    // if (!file)
-    // {
-    //     std::cerr << "File doesnt exist!";
-    // }
-    // char x;
-    // int i = 0;
-    // while (1)
-    // {
-    //     file >> x;
-    //     current_message[i] = x;
-    //     if (file.eof())
-    //         break;
-    //     std::cout << x << std::endl;
-    // }
+    // Simulating receiving unsorted message with right indexes.
+    char alphabet[] = "hidfekcbagj";
+    int indexes[] = {7, 8, 3, 5, 4, 10, 2, 1, 0, 6, 9};
+    int alphabet_size = 11;
+    for (int i = 0; i < alphabet_size; i++)
+    {
+        std::cout << alphabet[i];
+        queue.insert({indexes[i], alphabet[i]});
+    }
+    std::cout << std::endl;
 
-    // // auto start = std::chrono::high_resolution_clock::now();
-    // // auto finish = std::chrono::high_resolution_clock::now();
-    // // std::chrono::duration<double> elapsed = finish - start;
-    // // std::cout << "Elapsed time: " << elapsed.count() << std::endl;
-    // file.close();
-    // delete data_milestones;
+    // Inputing unsorted message to container and receiving sorted message.
+    while (!queue.empty())
+    {
+        std::cout << queue.min().value;
+        queue.removeMin();
+    }
+    std::cout << std::endl;
     return EXIT_SUCCESS;
 }
