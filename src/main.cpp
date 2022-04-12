@@ -25,7 +25,7 @@ char *get_message(const std::string &filename, int size)
     file.close();
     return current_message;
 }
-int main()
+void colect_data()
 {
     PriorityQueue<IndexedLetter, IdLetComparator> queue;
     char *current_message;
@@ -78,7 +78,6 @@ int main()
     output_file.close();
     delete data_milestones;
     delete current_message;
-    return EXIT_SUCCESS;
 }
 
 int main()
