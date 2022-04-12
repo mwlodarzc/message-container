@@ -2,34 +2,109 @@
 #define VECTOR_HH
 #include <stdexcept>
 #include <iostream>
-// Vector class based on Extandable Array
+/*!
+ * @file Vector.hh
+ *  Vector class based on Extandable Array.
+ */
 
+/*!
+ * @brief Vetor class with nested Iterator class.
+ */
 template <typename T>
 class Vector
 {
 private:
-    int capacity;      // current array size;
-    int n_of_elements; // number of elements in vector
+    /*!
+     * @brief Alocated aray size.
+     */
+    int capacity;
+
+    /*!
+     * @brief Number of elements curently stored in vector.
+     */
+    int n_of_elements;
+
+    /*!
+     * @brief Pointer to template typename T that acts as an array.
+     */
     T *elements;
 
 public:
+    /*!
+     * @brief Iterator class used for going through vector elements.
+     */
     class Iterator
     {
     private:
+        /*!
+         * @brief Pointer to template typename T that points to the current indexed element.
+         */
         T *current_element;
 
     public:
+        /*!
+         * @brief Constructor for Iterator class
+         * @param cur Pointer to curent element held in another Iterator object.
+         */
         Iterator(T *cur) : current_element(cur) {}
+        /*!
+         * @brief Const constructor for Iterator class
+         * @param cur Const pointer to curent element held in another Iterator object.
+         */
         Iterator(const T *cur);
+        /*!
+         * @brief Pre-increment iterator operator overload.
+         * @return Iterator reference
+         */
         Iterator &operator++();
+        /*!
+         * @brief Post-increment iterator operator overload.
+         * @return Iterator copy
+         */
         Iterator operator++(int);
+        /*!
+         * @brief Pre-decriment iterator operator overload.
+         * @return Iterator reference
+         */
         Iterator &operator--();
+        /*!
+         * @brief Post-decriment iterator operator overload.
+         * @return Iterator copy
+         */
         Iterator operator--(int);
+        /*!
+         * @brief Subtraction. Difference operator overload between two iterators. Doesn't change the object.
+         * @param iter Subtracted iterator.
+         * @return Subtraction value;
+         */
         int operator-(const Iterator &iter) const;
+        /*!
+         * @brief Operator overload that returns iterator.
+         * @param i index of iterator to be returned.
+         * @return Iterator at index i.
+         */
         Iterator operator[](int i) const;
+        /*!
+         * @brief Operator overload that returns iterator pointer.
+         * @return returnes curent iterator pointer.
+         */
         Iterator *operator->();
+        /*!
+         * @brief Operator overload that returns value
+         * @return curent iterators value.
+         */
         T &operator*() const;
+        /*!
+         * @brief Operator overload that bool value.
+         * @param iter iterator object.
+         * @return true if object equals iter.
+         */
         bool operator==(const Iterator &iter) const;
+        /*!
+         * @brief Operator overload that bool value.
+         * @param iter iterator object.
+         * @return true if object not equals iter.
+         */
         bool operator!=(const Iterator &iter) const;
     };
 

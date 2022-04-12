@@ -6,7 +6,12 @@
 #include "PriorityQueue.hh"
 #include "Comparator.hh"
 #include "IndexedLetter.hh"
-
+/*!
+ * @brief Function that gets specified number of characters from file.
+ * @param filename Name of file.
+ * @param size Number of characters
+ * @return character array (pointer).
+ */
 char *get_message(const std::string &filename, int size)
 {
     char *current_message = new char[size];
@@ -25,7 +30,7 @@ char *get_message(const std::string &filename, int size)
     file.close();
     return current_message;
 }
-void colect_data()
+void collect_data()
 {
     PriorityQueue<IndexedLetter, IdLetComparator> queue;
     char *current_message;
@@ -33,37 +38,44 @@ void colect_data()
     std::string output_filename = "./data.txt";
     std::fstream input_file;
     std::fstream output_file;
-    int x_points = 50000001;
-    int step_size = 500000;
-    int *data_milestones = new int[x_points / step_size];
-    std::chrono::duration<double> elapsed;
-    std::cout << sizeof(IndexedLetter) << std::endl;
-    input_file.open(input_filename, std::ios::in);
+    int x_points = 50000001;                              // maximum character data size
+    int step_size = 500000;                               // step size on characteristic
+    int *data_milestones = new int[x_points / step_size]; // all x datapoints
+    std::chrono::duration<double> elapsed;                // time variable
+    input_file.open(input_filename, std::ios::in);        // opening input file
     if (!input_file)
     {
         std::cerr << "File doesnt exist!";
     }
-    output_file.open(output_filename, std::ios::app);
+    output_file.open(output_filename, std::ios::app); // opening output file
     if (!output_file)
     {
-        std::cerr << "File doesnt exist!";
+        / std::cerr << "File doesnt exist!";
     }
     for (int mes_size = 0, data_index = 0; mes_size < x_points; mes_size += step_size, data_index++)
     {
         data_milestones[data_index] = mes_size;
         current_message = get_message(input_filename, mes_size);
         output_file << mes_size << "  " << sizeof(char) * mes_size << "  " << sizeof(IndexedLetter) * mes_size << "   ";
+        // begining of algorithms work timestamp
         auto start = std::chrono::high_resolution_clock::now();
         for (int j = 0; j < mes_size; j++)
         {
+            std::cout << current_message[j];
             queue.insert({j, current_message[j]});
         }
+        std::cout << std::endl;
+        // ending of data loading and begining of data sorting timestamp
         auto mid = std::chrono::high_resolution_clock::now();
         while (!queue.empty())
         {
+            std::cout << queue.min().value;
             queue.removeMin();
         }
+        std::cout << std::endl;
+        // ending of algorithms work timestamp
         auto finish = std::chrono::high_resolution_clock::now();
+        // calculating time used by algorithm
         elapsed = mid - start;
         output_file << elapsed.count() << "   ";
         elapsed = finish - mid;
@@ -71,9 +83,7 @@ void colect_data()
         elapsed = finish - start;
         output_file << elapsed.count() << std::endl;
     }
-    // auto start = std::chrono::high_resolution_clock::now();
-    // auto finish = std::chrono::high_resolution_clock::now();
-    // std::cout << "Elapsed time: " << elapsed.count() << std::endl;
+    // deleting alocated data.
     input_file.close();
     output_file.close();
     delete data_milestones;
@@ -82,6 +92,7 @@ void colect_data()
 
 int main()
 {
+    // collect_data();
     //  Variables used in examples
     PriorityQueue<IndexedLetter, IdLetComparator> queue;
     std::string filename = "./LoremIpsum.txt";

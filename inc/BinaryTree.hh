@@ -80,13 +80,22 @@ typename BinaryTree<T>::iter BinaryTree<T>::parent(const typename BinaryTree<T>:
 }
 
 template <typename T>
-bool BinaryTree<T>::hasLeft(const typename BinaryTree<T>::iter &p) { return 2 * idx(p) <= size(); }
+bool BinaryTree<T>::hasLeft(const typename BinaryTree<T>::iter &p)
+{
+    return 2 * idx(p) <= size();
+}
 
 template <typename T>
-bool BinaryTree<T>::hasRight(const typename BinaryTree<T>::iter &p) { return 2 * idx(p) + 1 <= size(); }
+bool BinaryTree<T>::hasRight(const typename BinaryTree<T>::iter &p)
+{
+    return 2 * idx(p) + 1 <= size();
+}
 
 template <typename T>
-bool BinaryTree<T>::isRoot(const typename BinaryTree<T>::iter &p) { return idx(p) == 1; }
+bool BinaryTree<T>::isRoot(const typename BinaryTree<T>::iter &p)
+{
+    return idx(p) == 1;
+}
 
 template <typename T>
 typename BinaryTree<T>::iter BinaryTree<T>::root()
