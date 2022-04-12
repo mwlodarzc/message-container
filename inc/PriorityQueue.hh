@@ -1,19 +1,46 @@
 #ifndef PRIORITY_QUEUE_HH
 #define PRIORITY_QUEUE_HH
 #include "BinaryTree.hh"
-
+/*!
+ * @brief PriorityQueue class with minimum key return value.
+ */
 template <typename T, typename C>
 class PriorityQueue
 {
 private:
+    /*!
+     * @brief BinaryTree with queues elements
+     */
     BinaryTree<T> elements;
+    /*!
+     * @brief Comparator for minimal key return value
+     */
     C comparator;
 
 public:
+    /*!
+     * @brief Size return method.
+     * @return Size of priority queue.
+     */
     int size() const;
+    /*!
+     * @brief Empty check method
+     * @return True if priority queue empty.
+     */
     bool empty() const;
+    /*!
+     * @brief Insertion method
+     * @param elem Element to be inserted of type specified in template.
+     */
     void insert(const T &elem);
+    /*!
+     * @brief Minimal value key return method.
+     * @return Minimal key value.
+     */
     const T &min();
+    /*!
+     * @brief Remove minimal key element from priority queue method.
+     */
     void removeMin();
 };
 template <typename T, typename C>

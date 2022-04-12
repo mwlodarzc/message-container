@@ -3,34 +3,86 @@
 #include <stdexcept>
 #include "Position.hh"
 #include "Vector.hh"
-
+/*!
+ * @brief BinaryTree class implementation
+ */
 template <typename T>
 class BinaryTree
 {
 private:
+    /*!
+     * @brief Vector of elements in binary tree (positions).
+     */
     Vector<Position<T>> positions;
+    /*!
+     * @brief First position in binary tree. // unused in this implememntation / only for form completion
+     */
     Node<T> *_root;
 
 public:
+    /*!
+     * @brief Iterator class type specifier used for shorter implementation
+     */
     typedef typename Vector<Position<T>>::Iterator iter;
 
+    /*!
+     * @brief No parameter constructor. Inserts one element into positions vector
+     */
     BinaryTree() : positions(1), _root(NULL) // works
     {
         Node<T> *tmp = new Node<T>();
         Position<T> *tmp_pos = new Position<T>(tmp);
         positions.insert(0, *tmp_pos);
     }
+    /*!
+     * @brief Size return method.
+     */
     int size() const; // works
+    /*!
+     * @brief Return left position iterator in a tree from current position iterator method
+     */
     iter left(const iter &p);
+    /*!
+     * @brief Return right position iterator in a tree from current position iterator method
+     */
     iter right(const iter &p);
+    /*!
+     * @brief Return parent position iterator in a tree from current position iterator method
+     */
     iter parent(const iter &p);
-    bool hasLeft(const iter &p);  // works
-    bool hasRight(const iter &p); // works
-    bool isRoot(const iter &p);   // works
+    /*!
+     * @brief Check for left position iterator from current position iterator method.
+     */
+    bool hasLeft(const iter &p);
+    /*!
+     * @brief Check for right position iterator from current position iterator method.
+     */
+    bool hasRight(const iter &p);
+    /*!
+     * @brief Check if curent position iterator is the root position iterator method.
+     */
+    bool isRoot(const iter &p);
+    /*!
+     * @brief Root position iterator return method.
+     */
     iter root();
+    /*!
+     * @brief Last position iterator return method.
+     */
     iter last();
+    /*!
+     * @brief Add in last element method.
+     */
     void addLast(const T &elem);
+    /*!
+     * @brief remove last element method.
+     */
     void removeLast();
+    /*!
+     * @brief Swap two iterator position specified in parameters method.
+     * @param p First iterator position.
+     * @param q Second iterator position.
+     */
     void swap(iter &p, iter &q);
 
 public:

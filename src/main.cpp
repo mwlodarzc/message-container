@@ -50,7 +50,7 @@ void collect_data()
     output_file.open(output_filename, std::ios::app); // opening output file
     if (!output_file)
     {
-        / std::cerr << "File doesnt exist!";
+        std::cerr << "File doesnt exist!";
     }
     for (int mes_size = 0, data_index = 0; mes_size < x_points; mes_size += step_size, data_index++)
     {
